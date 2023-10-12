@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Boys = require('../modules/boys');
+const Boys = require("../modules/boys");
 const cors = require("cors");
 const UserModel = require("../modules/user");
-
-router.use(cors());
 
 // GET ALL DATA
 router.get("/database", async (req, res) => {
