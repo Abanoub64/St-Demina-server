@@ -4,7 +4,7 @@ const Boys = require("../modules/boys");
 const cors = require("cors");
 const UserModel = require("../modules/user");
 
-app.use(
+router.use(
   cors({
     credentials: true,
     origin: [
