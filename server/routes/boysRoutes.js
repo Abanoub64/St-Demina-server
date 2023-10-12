@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Boys = require("../modules/boys");
+const Boys = require('../modules/boys');
 const cors = require("cors");
 const UserModel = require("../modules/user");
 
