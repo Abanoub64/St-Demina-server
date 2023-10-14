@@ -4,9 +4,6 @@ const Boys = require("../modules/boys");
 const cors = require("cors");
 const UserModel = require("../modules/user");
 
-router.use(cors({
-  origin: ['https://st-demiana-client.vercel.app/','https://radiant-eclair-29f392.netlify.app/','https://st-demiana-client.vercel.app','https://radiant-eclair-29f392.netlify.app']  // change to match the domain of your React app, if different
-}));
 
 // GET ALL DATA
 router.get("/database", async (req, res) => {
