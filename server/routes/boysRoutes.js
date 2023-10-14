@@ -4,7 +4,18 @@ const Boys = require("../modules/boys");
 const cors = require("cors");
 const UserModel = require("../modules/user");
 
-router.use(cors());
+router.use(
+  cors({
+    credentials: true,
+    origin: [
+      "https://radiant-eclair-29f392.netlify.app",
+      "https://radiant-eclair-29f392.netlify.app",
+      "https://st-demiana-client.vercel.app/",
+      "https://st-demiana-client.vercel.app",
+    ],
+  })
+);
+
 // GET ALL DATA
 router.get("/database", async (req, res) => {
   try {
