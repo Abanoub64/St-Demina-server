@@ -100,8 +100,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const pas = await UserModel.findOne({password})
-    if(!password){
+    if(!(user.password === password )){
       return res.status(404).json({ error: "Password is not Right" });
     }
 
