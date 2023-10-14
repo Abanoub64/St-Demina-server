@@ -95,17 +95,13 @@ router.post("/login", async (req, res) => {
   try {
     const { name, password } = req.body;
     // check if user exist
-    const user = await UserModel.findOne({ name });
+    const user = await UserModel.findOne({ name ,password});
 
     if (!user) {
+      console.log(user)
       return res.status(404).json({ error: "User not found" });
     }
-    if(user.password != password){
-      console.log(user)
-      console.log(user.password)
-      console.log(password)
-      return res.status(404).json({ error: "Password is not Right" });
-    }
+
 
     return res.status(200).json("login");
   } catch (error) {
