@@ -1,9 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
-const Boys = require("../server/modules/boys");
+const Boys = require("./modules/boys");
 const cors = require("cors");
-const BoysRoutes = require("../server/routes/boysRoutes");
+const BoysRoutes = require("./routes/boysRoutes");
 
 const app = express();
 
