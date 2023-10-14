@@ -5,13 +5,7 @@ const cors = require("cors");
 const UserModel = require("../modules/user");
 
 router.use(
-  cors({
-    credentials: true,
-    origin: [
-      "https://st-deimana-server.onrender.com",
-      "https://st-demiana-client.vercel.app/",
-    ],
-  })
+  cors({ credentials: true, origin: "https://st-demiana-client.vercel.app/" })
 );
 // GET ALL DATA
 router.get("/database", async (req, res) => {
