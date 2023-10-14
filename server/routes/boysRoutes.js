@@ -4,9 +4,7 @@ const Boys = require("../modules/boys");
 const cors = require("cors");
 const UserModel = require("../modules/user");
 
-router.use(
-  cors({ credentials: true, origin: "https://st-demiana-client.vercel.app/" })
-);
+router.use(cors());
 // GET ALL DATA
 router.get("/database", async (req, res) => {
   try {
