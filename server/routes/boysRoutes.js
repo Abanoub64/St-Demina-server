@@ -93,13 +93,17 @@ router.delete("/database/:id", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
   try {
-    // const { name, password } = req.body;
-    // // check if user exist
-    // const user = await UserModel.findOne({ name });
+    const { name, password } = req.body;
+    // check if user exist
+    const user = await UserModel.findOne({ name });
 
-    // if (!user) {
-    //   return res.status(404).json({ error: "User not found" });
-    // }
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const pas = await UserModel.findOne({password})
+    if(!password){
+      return res.status(404).json({ error: "Password is not Right" });
+    }
 
     return res.status(200).json("login");
   } catch (error) {
