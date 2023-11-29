@@ -1,10 +1,6 @@
 const express = require("express");
 const datarouter = express.Router();
-const Boys = require("../modules/boys");
-const cors = require("cors");
 const FamilyModel = require("../modules/families");
-
-datarouter.use(cors());
 
 // GET ALL DATA
 datarouter.get("/database", async (req, res) => {

@@ -5,15 +5,14 @@ const cors = require("cors");
 const UsersRoutes = require("../server/routes/usersRoutes");
 const DataRoutes = require("./routes/familiesRoutes");
 
-const app = express();
 
-// const app = express();
-// app.use(
-//   cors({
-//     origin: "https://st-demiana-client.vercel.app",
-//     credentials: true,
-//   })
-// );
+const app = express();
+app.use(
+  cors({
+    origin: "https://st-demiana-client.vercel.app",
+    credentials: true,
+  })
+);
 
 //middleware
 app.use(express.json());
