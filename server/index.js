@@ -1,19 +1,30 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
-const Boys = require("./modules/boys");
 const cors = require("cors");
-const BoysRoutes = require("./routes/boysRoutes");
+const UsersRoutes = require("../server/routes/usersRoutes");
+const DataRoutes = require("./routes/familiesRoutes");
 
 const app = express();
-app.use(cors({
-  origin: 'https://st-demiana-client.vercel.app',
-  credentials: true
-}));
+
+// const app = express();
+// app.use(
+//   cors({
+//     origin: "https://st-demiana-client.vercel.app",
+//     credentials: true,
+//   })
+// );
 
 //middleware
 app.use(express.json());
-app.use("/", BoysRoutes);
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
+app.use("/", UsersRoutes);
+app.use("/", DataRoutes);
 
 //connect to DB
 mongoose

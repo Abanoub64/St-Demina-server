@@ -1,41 +1,38 @@
 const express = require("express");
-const router = express.Router();
+const datarouter = express.Router();
 const Boys = require("../modules/boys");
 const cors = require("cors");
-const UserModel = require("../modules/user");
+const FamilyModel = require("../modules/families");
 
+datarouter.use(cors());
 
 // GET ALL DATA
-router.get("/database", async (req, res) => {
+datarouter.get("/database", async (req, res) => {
+  const families = await FamilyModel.find();
   try {
-    const boys = await Boys.find({});
-    res.status(200).send(boys);
+    res.status(200).json(families);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 // ADD NEW ENTIRY
-router.post("/database", async (req, res) => {
+datarouter.post("/database", async (req, res) => {
+  console.log(req.body);
+
   try {
-    if (!req.body.name) {
-      return res.status(400).json({ Error: "Name is required" });
-    }
-    const { name, adress, phone, phone2, day, mon, year, father, satate } =
-      req.body;
-    const newboy = {
-      name,
-      adress,
-      phone,
-      phone2,
-      day,
-      mon,
-      year,
+    const { father, mother, location, Childrenlist } = req.body;
+    const newfamily = {
       father,
-      satate,
+      mother,
+      location,
+      Childrenlist,
     };
-    const boy = await Boys.create(newboy);
-    console.log(boy);
+    const family = await FamilyModel.create(newfamily);
+    console.log(family);
+    res.json({
+      success: `تم اضافة اسرة الاستاذ ${family.father.firstname} ${family.father.secondname}`,
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
@@ -43,10 +40,10 @@ router.post("/database", async (req, res) => {
 });
 
 // GET INFO OF ONE ENTRY
-router.get("/database/:id", async (req, res) => {
+datarouter.get("/database/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const exits = await Boys.findById(id);
+    const exits = await FamilyModel.findById(id);
     if (!exits) {
       return res.status(404).send("No such entry");
     }
@@ -58,13 +55,13 @@ router.get("/database/:id", async (req, res) => {
 });
 
 // UPDATE ONE ENTRY
-router.put("/database/:id", async (req, res) => {
+datarouter.put("/database/:id", async (req, res) => {
   try {
     if (!req.body.name) {
       return res.status(404).send("Name needed");
     }
     const { id } = req.params;
-    const result = await Boys.findByIdAndUpdate(id, req.body);
+    const result = await FamilyModel.findByIdAndUpdate(id, req.body);
     if (!result) {
       return res.status(404).send("No such entry");
     }
@@ -76,10 +73,10 @@ router.put("/database/:id", async (req, res) => {
 });
 
 //Delete Entry
-router.delete("/database/:id", async (req, res) => {
+datarouter.delete("/database/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const exits = await Boys.findByIdAndDelete(id);
+    const exits = await FamilyModel.findByIdAndDelete(id);
     if (!exits) {
       return res.status(404).send("No such entry");
     }
@@ -91,7 +88,7 @@ router.delete("/database/:id", async (req, res) => {
 });
 
 //LOGIN
-router.post("/login", async (req, res) => {
+datarouter.post("/login", async (req, res) => {
   try {
     const { name, password } = req.body;
     // check if user exist
@@ -101,12 +98,11 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-
-    return res.status(200).json("login");
+    return res.status(200).json({ success: "Welcome" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Server error" });
   }
 });
 
-module.exports = router;
+module.exports = datarouter;
