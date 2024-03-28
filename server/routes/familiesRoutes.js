@@ -5,9 +5,6 @@ const cors = require("cors");
 const FamilyModel = require("../modules/families");
 const requireAuth = require("../middleware/requireAuth");
 
-datarouter.use(cors());
-// datarouter.use(requireAuth);
-
 // GET ALL DATA
 datarouter.get("/database", async (req, res) => {
   const families = await FamilyModel.find();

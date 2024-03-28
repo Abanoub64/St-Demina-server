@@ -15,7 +15,12 @@ app.use(
 
 //middleware
 app.use(express.json());
-
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use("/", UsersRoutes);
 app.use("/", DataRoutes);
 
