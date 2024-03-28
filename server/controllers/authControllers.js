@@ -14,55 +14,56 @@ const createToken = (_id) => {
 //register
 const registeruser = async (req, res) => {
   try {
-    const { name, password } = req.body;
-    // check if name is entarted
-    if (!name) {
-      return res.json({ error: "name is required" });
-    }
-    // check if name is ok
-    if (!password || password.lenght < 6) {
-      return res.json({
-        error: "passwrod is required and should be at least 6 char",
-      });
-    }
-    // check eamil
-    const exist = await UserModel.findOne({ email });
-    console.log(exist);
+    const { father_name, name, phone_number, password, role, acsess } =
+      req.body;
+    const exist = await UserModel.findOne({ phone_number });
     if (exist) {
       return res.json({
-        error: "Email is taken already",
+        error: "User already exist",
       });
     }
     //create user
+
     const user = await UserModel.create({
+      father_name,
       name,
-      email,
+      phone_number,
       password,
+      role,
+      acsess,
     });
+
     // create token
     const token = createToken(user._id);
 
-    return res.json(eamil, token);
+    return res.status(200).json({ user, token });
   } catch (error) {
     console.log(error);
   }
 };
 
 const loginUser = async (req, res) => {
-  const { name, password } = req.body;
+  const { phone_number, password } = req.body;
   try {
-    const user = await UserModel.login(name, password);
+    if (!phone_number || !password) {
+      return res.status(401).json({ error: "All fields must be filled" });
+    }
+    const user = await UserModel.findOne({ phone_number });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-
+    const userdata = {
+      name: user.name,
+      role: user.role,
+      acsess: user.acsess,
+    };
     // compare the password from the request with the password stored in the database
 
     // if user is found and password is valid, create a token
     const token = createToken(user._id);
 
-    return res.status(200).json({ name, token });
+    return res.status(200).json({ userdata, token });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Server error" });

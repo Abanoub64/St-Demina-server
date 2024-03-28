@@ -5,6 +5,7 @@ const cors = require("cors");
 const UsersRoutes = require("../server/routes/usersRoutes");
 const DataRoutes = require("./routes/familiesRoutes");
 
+const app = express();
 
 const app = express();
 app.use(
@@ -27,7 +28,11 @@ app.use("/", DataRoutes);
 
 //connect to DB
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    family: 4,
+  })
   .then(() => {
     console.log("connected to DB");
     app.listen(process.env.PORT, () => {

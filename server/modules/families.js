@@ -94,10 +94,10 @@ const familiesSchema = new Schema({
   },
   Childrenlist: [
     {
-      name: String, // <<< head
+      name: String,
       sex: String,
       birthdate: Date,
-      age_stage: Number,
+      age_stage: Number, //<Range [0,20]
       educationlevel: String,
       medication: [
         {
