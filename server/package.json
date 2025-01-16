@@ -6,14 +6,13 @@
   "directories": {
     "doc": "docs"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
-  },
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "prestart": "node -e \"if (process.version.indexOf('v18.') !== 0) { console.error('Error: Please use Node.js 18.'); process.exit(1); }\"",
+  "start": "nodemon index.js",
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=16.0.0"  
+    "node": ">=18.0.0"  
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
